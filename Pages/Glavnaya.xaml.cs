@@ -31,7 +31,7 @@ namespace UchetProsmotrennichFilmov.Pages
 
         private int NumberOfPage = 0;
         private int maxItemShow = 5;
-        List<Films> currentTasks = AppDB.db.Films.ToList();
+        
         public Glavnaya()
         {
             InitializeComponent();
@@ -72,10 +72,10 @@ namespace UchetProsmotrennichFilmov.Pages
             });
             CBRezhis.ItemsSource = AllRezh;
 
-
+            var currentTasks = AppDB.db.Films.ToList();
             //RezhGrid.ItemsSource = AppDB.db.Rezhisers.ToList();
 
-            PagesCount = Convert.ToInt16(Math.Floor(((double)currentTasks.Count / maxItemShow) - 0.0000001));
+            PagesCount = Convert.ToInt16(Math.Floor(((double)currentTasks.Count / maxItemShow) - 0.0001));
             CheckPages();
             KatalogGrid.ItemsSource = currentTasks.Skip(maxItemShow * NumberOfPage).Take(maxItemShow).ToList();
 
@@ -167,7 +167,7 @@ namespace UchetProsmotrennichFilmov.Pages
             var currentTasks = AppDB.db.Films.ToList();
        
 
-            PagesCount = Convert.ToInt16(Math.Floor(((double)currentTasks.Count / maxItemShow) - 0.0000001));
+            PagesCount = Convert.ToInt16(Math.Floor(((double)currentTasks.Count / maxItemShow) - 0.0001));
             CheckPages();
             KatalogGrid.ItemsSource = currentTasks.Skip(maxItemShow * NumberOfPage).Take(maxItemShow).ToList();
 
@@ -211,9 +211,8 @@ namespace UchetProsmotrennichFilmov.Pages
             else
             {
                 TBNextPage.Visibility = Visibility.Collapsed;
-              vperimg.Visibility = Visibility.Collapsed;
-
-
+                vperimg.Visibility = Visibility.Collapsed;
+              
             }
             
         }
@@ -359,7 +358,7 @@ namespace UchetProsmotrennichFilmov.Pages
             }
 
             KatalogGrid.ItemsSource = filmpoisk;
-            PagesCount = Convert.ToInt16(Math.Floor(((double)filmpoisk.Count / maxItemShow) - 0.0000001));
+            PagesCount = Convert.ToInt16(Math.Floor(((double)filmpoisk.Count / maxItemShow) - 0.0001));
             CheckPages();
             KatalogGrid.ItemsSource = filmpoisk.Skip(maxItemShow * NumberOfPage).Take(maxItemShow).ToList();
         }
@@ -372,7 +371,7 @@ namespace UchetProsmotrennichFilmov.Pages
                
                 NumberOfPage++;
                 TBCurrentPage.Text = (NumberOfPage + 1).ToString();
-                CheckPages();
+               CheckPages();
                 
                 
             }
@@ -395,7 +394,7 @@ namespace UchetProsmotrennichFilmov.Pages
         private void StackPanel_MouseDown(object sender, MouseButtonEventArgs e)
         {
             List<Films> currentfilm = new List<Films>();
-            foreach (var item in AppDB.db.Prosmotreno.ToList().Where(c => c.UserId == AppDB.CurrentUser.IdUser).ToList())
+            foreach (var item in  AppDB.db.Prosmotreno.ToList().Where(c => c.UserId == AppDB.CurrentUser.IdUser).ToList())
                 currentfilm.Add(AppDB.db.Films.ToList().Where(c => c.IdFilm == item.FilmId && item.UserId == AppDB.CurrentUser.IdUser).First());
             LBMyTasks.ItemsSource = currentfilm;
             PagesCount = Convert.ToInt16(currentfilm.Count);
@@ -408,6 +407,8 @@ namespace UchetProsmotrennichFilmov.Pages
                 currentfilm.Add(AppDB.db.Films.ToList().Where(c => c.IdFilm == item.FilmId && item.UserId == AppDB.CurrentUser.IdUser).First());
             LBMyTasks1.ItemsSource = currentfilm;
             PagesCount1 = Convert.ToInt16(currentfilm.Count);
+
+        
         }
 
         //private void BtnAddRezh_Click(object sender, RoutedEventArgs e)
