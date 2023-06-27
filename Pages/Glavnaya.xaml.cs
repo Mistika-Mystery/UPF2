@@ -365,29 +365,33 @@ namespace UchetProsmotrennichFilmov.Pages
 
         private void Image_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            Seach_Filter_Films(SeactWater.Text);
+            
             if (NumberOfPage < PagesCount)
             {
                
                 NumberOfPage++;
                 TBCurrentPage.Text = (NumberOfPage + 1).ToString();
-               CheckPages();
-                
-                
+                CheckPages();
+                Seach_Filter_Films(SeactWater.Text);
+
+
+
             }
         }
 
         private void backim_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            Seach_Filter_Films(SeactWater.Text);
+            
             if (NumberOfPage > 0)
             {
                 
                 NumberOfPage--;
                 TBCurrentPage.Text = (NumberOfPage + 1).ToString();
                 CheckPages();
-                
-                
+                Seach_Filter_Films(SeactWater.Text);
+
+
+
             }
         }
 
